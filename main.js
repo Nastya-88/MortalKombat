@@ -21,33 +21,32 @@ const player2 = {
         console.log(player2.name + '' + 'Fight...');
     }
 }
-function randomHP(player) {
-    return player.hp -= Math.ceil(Math.random() * 20);
+function randomHP() {
+    return Math.ceil(Math.random() * 20);
 }
 function changeHP(player) {
     const $playerLife = document.querySelector('.player' + player.player + ' .life');
-    randomHP(player);
-    $playerLife.style.width = player.hp + '%';
+    player.hp -= randomHP();
     if (player.hp < 0) {
         player.hp = 0;
     }
 
     if (player1.hp === 0 && player1.hp < player2.hp) {
-        $arenas.appendChild(playerWins(player2.name));
-        player.hp = 0;
+        $arenas.appendChild(playerWins(player2.name, 'winsTitle'));
         $randomButton.disabled = true;
     } else if (player2.hp === 0 && player2.hp < player1.hp) {
-        $arenas.appendChild(playerWins(player1.name));
+        $arenas.appendChild(playerWins(player1.name, 'winsTitle'));
         $randomButton.disabled = true;
     } else if (player1.hp === 0 && player2.hp === 0) {
-        $arenas.appendChild(playerWins());
+        $arenas.appendChild(playerWins(null, 'deadHeat'));
         $randomButton.disabled = true;
     }
+    $playerLife.style.width = player.hp + '%';
 }
 
-function playerWins(name) {
-    const $winsTitle = createElement('div', 'winsTitle');
-    (name) ? $winsTitle.innerText = name + ' Wins!!!' : $winsTitle.innerText = 'Dead Heat';
+function playerWins(name, title) {
+    const $winsTitle = createElement('div', title);
+    $winsTitle.innerText = (name) ? name + ' Wins!!!' : 'Dead Heat!';
     return $winsTitle;
 }
 

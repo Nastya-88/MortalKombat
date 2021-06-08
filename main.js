@@ -14,7 +14,6 @@ const player1 = {
     changeHP: changeHP,
     elHP: elHP,
     renderHP: renderHP,
-    createReloadButton: createReloadButton,
 };
 
 const player2 = {
@@ -29,7 +28,6 @@ const player2 = {
     changeHP: changeHP,
     elHP: elHP,
     renderHP: renderHP,
-    createReloadButton: createReloadButton,
 };
 
 
@@ -90,8 +88,8 @@ function createReloadButton() {
         window.location.reload();
     })
     $reloadWrap.appendChild($button);
-    $arenas.appendChild($reloadWrap);
     return $reloadWrap;
+
 };
 
 $randomButton.addEventListener('click', function () {
@@ -101,8 +99,7 @@ $randomButton.addEventListener('click', function () {
     player2.renderHP();
     if (player1.hp === 0 || player2.hp === 0) {
         $randomButton.disabled = true;
-        player1.createReloadButton();
-        player2.createReloadButton();
+        $arenas.appendChild(createReloadButton());
     }
 
     if (player1.hp === 0 && player1.hp < player2.hp) {
